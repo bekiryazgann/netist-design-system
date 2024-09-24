@@ -1,0 +1,1 @@
+{"version":3,"file":"types.js","sourceRoot":"","sources":["../../src/types.ts"],"names":[],"mappings":"","sourcesContent":["export type ProgressStatus = \"not-started\" | \"in-progress\" | \"completed\"\n\nexport type DateRange = {\n  from: Date | undefined\n  to?: Date | undefined\n}\n"]}

@@ -42,9 +42,9 @@ const buttonVariants = cva(
         ),
       },
       size: {
-        base: "txt-compact-small-plus gap-x-1.5 px-3 py-1.5",
-        large: "txt-compact-medium-plus gap-x-1.5 px-4 py-2.5",
-        xlarge: "txt-compact-large-plus gap-x-1.5 px-5 py-3.5",
+        base: "txt-compact-small-plus gap-x-1.5 px-5 py-1.5",
+        large: "txt-compact-medium-plus gap-x-1.5 px-6 py-2.5",
+        xlarge: "txt-compact-large-plus gap-x-1.5 px-7 py-3.5",
       },
     },
     defaultVariants: {
@@ -77,11 +77,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Component = asChild ? Slot : "button"
 
-    /**
-     * In the case of a button where asChild is true, and isLoading is true, we ensure that
-     * only on element is passed as a child to the Slot component. This is because the Slot
-     * component only accepts a single child.
-     */
     const renderInner = () => {
       if (isLoading) {
         return (
