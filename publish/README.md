@@ -12,23 +12,22 @@
 
 
 ## To be completed
-- [x] Accordion
-- [ ] Activity Feed
-- [ ] Alert
-- [ ] Notification
-- [ ] Toast
+- [-] Color Picker
 - [ ] Banner
 - [ ] Breadcrumb
-- [ ] Content Divider
-- [ ] Quick Actions (Command Bar)
 - [ ] File Upload
 - [ ] Filtering
-- [ ] Modal
 - [ ] Pagination
-- [ ] Color Picker
-- [ ] Progress Bar
-- [ ] Popover
-- [ ] Rating
-- [ ] Slider
-- [ ] Tag
 - [ ] FormItem (Ready-made form elements)
+- [ ] Rating
+-
+## Completed
+- [x] Quick Actions (Command Bar)
+- [x] Progress Bar
+- [x] Popover
+- [x] Slider
+- [x] Accordion
+- [x] Toast
+- [x] Modal
+- [x] Content Divider
+- [x] Tag

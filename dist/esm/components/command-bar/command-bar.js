@@ -4,7 +4,7 @@ import * as Portal from "@radix-ui/react-portal";
 import * as React from "react";
 import { Kbd } from "../kbd";
 import { clx } from "../../utils/clx";
-const Root = ({ open = false, onOpenChange, defaultOpen = false, disableAutoFocus = true, children, }) => {
+const Root = ({ open = false, onOpenChange, defaultOpen = false, disableAutoFocus = true, children }) => {
     return (React.createElement(Popover.Root, { open: open, onOpenChange: onOpenChange, defaultOpen: defaultOpen },
         React.createElement(Portal.Root, null,
             React.createElement(Popover.Anchor, { className: clx("fixed bottom-8 left-1/2 h-px w-px -translate-x-1/2") })),
@@ -21,7 +21,7 @@ const Value = React.forwardRef(({ className, ...props }, ref) => {
 });
 Value.displayName = "CommandBar.Value";
 const Bar = React.forwardRef(({ className, ...props }, ref) => {
-    return (React.createElement("div", { ref: ref, className: clx("bg-ui-contrast-bg-base relative flex items-center overflow-hidden rounded-full px-1", "after:shadow-elevation-flyout after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:content-['']", className), ...props }));
+    return (React.createElement("div", { ref: ref, className: clx("bg-ui-contrast-bg-base relative flex items-center overflow-hidden rounded-xl px-1", "after:shadow-elevation-flyout after:pointer-events-none after:absolute after:inset-0 after:rounded-full after:content-['']", className), ...props }));
 });
 Bar.displayName = "CommandBar.Bar";
 const Seperator = React.forwardRef(({ className, ...props }, ref) => {

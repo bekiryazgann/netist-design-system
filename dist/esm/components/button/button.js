@@ -12,9 +12,9 @@ const buttonVariants = cva(clx("transition-fg relative inline-flex w-fit items-c
             danger: clx("shadow-buttons-colored shadow-buttons-danger text-ui-fg-on-color bg-ui-button-danger after:button-danger-gradient", "hover:bg-ui-button-danger-hover hover:after:button-danger-hover-gradient", "active:bg-ui-button-danger-pressed active:after:button-danger-pressed-gradient", "focus:shadow-buttons-danger-focus"),
         },
         size: {
-            base: "txt-compact-small-plus gap-x-1.5 px-3 py-1.5",
-            large: "txt-compact-medium-plus gap-x-1.5 px-4 py-2.5",
-            xlarge: "txt-compact-large-plus gap-x-1.5 px-5 py-3.5",
+            base: "txt-compact-small-plus gap-x-1.5 px-5 py-1.5",
+            large: "txt-compact-medium-plus gap-x-1.5 px-6 py-2.5",
+            xlarge: "txt-compact-large-plus gap-x-1.5 px-7 py-3.5",
         },
     },
     defaultVariants: {
@@ -24,11 +24,6 @@ const buttonVariants = cva(clx("transition-fg relative inline-flex w-fit items-c
 });
 const Button = React.forwardRef(({ variant = "primary", size = "base", className, asChild = false, children, isLoading = false, disabled, ...props }, ref) => {
     const Component = asChild ? Slot : "button";
-    /**
-     * In the case of a button where asChild is true, and isLoading is true, we ensure that
-     * only on element is passed as a child to the Slot component. This is because the Slot
-     * component only accepts a single child.
-     */
     const renderInner = () => {
         if (isLoading) {
             return (React.createElement("span", { className: "pointer-events-none" },

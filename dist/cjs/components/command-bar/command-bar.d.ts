@@ -11,7 +11,7 @@ interface CommandProps extends Omit<React.ComponentPropsWithoutRef<"button">, "c
     shortcut: string;
 }
 declare const CommandBar: {
-    ({ open, onOpenChange, defaultOpen, disableAutoFocus, children, }: CommandBarProps): React.JSX.Element;
+    ({ open, onOpenChange, defaultOpen, disableAutoFocus, children }: CommandBarProps): React.JSX.Element;
     displayName: string;
 } & {
     Command: React.ForwardRefExoticComponent<CommandProps & React.RefAttributes<HTMLButtonElement>>;
