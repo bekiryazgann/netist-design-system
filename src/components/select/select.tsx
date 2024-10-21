@@ -116,9 +116,7 @@ const Content = React.forwardRef<
                 collisionPadding={collisionPadding}
                 {...props}
             >
-                <div className="border-b border-b-ui-border-base">
-                    <input type="text" className="focus:outline-none py-2 px-4 h-9 text-sm" placeholder="Search..."/>
-                </div>
+
                 <SelectPrimitive.Viewport
                     className={clx(
                         "p-1",
