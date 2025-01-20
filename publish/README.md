@@ -14,7 +14,7 @@
 ## To be completed
 - [-] Color Picker
 - [ ] Banner
-- [ ] Breadcrumb
+- [ ] Card
 - [ ] File Upload
 - [ ] Filtering
 - [ ] Pagination

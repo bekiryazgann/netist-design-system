@@ -10,7 +10,7 @@ const inputBaseStyles = clx(
   "caret-ui-fg-base bg-ui-bg-field hover:bg-ui-bg-field-hover shadow-borders-base placeholder-ui-fg-muted text-ui-fg-base transition-fg relative w-full appearance-none rounded-md outline-none",
   "focus:shadow-borders-interactive-with-active",
   "disabled:text-ui-fg-disabled disabled:!bg-ui-bg-disabled disabled:placeholder-ui-fg-disabled disabled:cursor-not-allowed",
-  "aria-[invalid=true]:!shadow-borders-error  invalid:!shadow-borders-error"
+  "aria-[invalid=true]:!shadow-borders-error  invalid:!shadow-borders-error w-full"
 )
 
 const inputVariants = cva(
@@ -42,7 +42,10 @@ const Input = React.forwardRef<
   const isSearch = type === "search"
 
   return (
-    <div className="relative">
+    <div className={clx(
+        "relative",
+        className
+    )}>
       <input
         ref={ref}
         type={isPassword ? typeState : type}

@@ -1,6 +1,6 @@
 {
   "name": "@netist/ui",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "author": "Ebubekir Yazgan <yazganebubekir4@gmail.com>",
   "license": "MIT",
   "repository": {
@@ -8,9 +8,9 @@
     "url": "bekiryazgann/netist-design-system.git",
     "directory": "/"
   },
-  "main": "./dist/cjs/index.js",
+  "main": "dist/cjs/index.js",
   "types": "./dist/cjs/index.d.ts",
-  "module": "./dist/esm/index.js",
+  "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "require": {
@@ -29,17 +29,17 @@
     "styles.css"
   ],
   "scripts": {
-    "build": "yarn clean && yarn build:js:cjs && yarn build:js:esm",
-    "build:js:cjs": "tsc --project tsconfig.cjs.json && tsc-alias -p tsconfig.cjs.json",
-    "build:js:esm": "tsc --project tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
-    "clean": "rimraf dist",
-    "test": "vitest --run",
-    "test:watch": "vitest",
-    "test:coverage": "vitest --run --coverage",
-    "lint": "eslint \"**/*.ts*\"",
-    "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build",
-    "typecheck": "tsc --noEmit"
+    "build": "node_modules/.bin/yarn clean && yarn build:js:cjs && yarn build:js:esm",
+    "build:js:cjs": "node_modules/.bin/tsc --project tsconfig.cjs.json && tsc-alias -p tsconfig.cjs.json",
+    "build:js:esm": "node_modules/.bin/tsc --project tsconfig.esm.json && tsc-alias -p tsconfig.esm.json",
+    "clean": "node_modules/.bin/rimraf dist",
+    "test": "node_modules/.bin/vitest --run",
+    "test:watch": "node_modules/.bin/vitest",
+    "test:coverage": "node_modules/.bin/vitest --run --coverage",
+    "lint": "node_modules/.bin/eslint \"**/*.ts*\"",
+    "storybook": "node_modules/.bin/storybook dev -p 6006",
+    "storybook:build": "node_modules/.bin/storybook build",
+    "typecheck": "node_modules/.bin/tsc --noEmit"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.6.20",
@@ -110,7 +110,8 @@
     "react-colorful": "^5.6.1",
     "react-currency-input-field": "^3.8.0",
     "react-day-picker": "^8.10.1",
-    "tailwind-merge": "^1.14.0"
+    "tailwind-merge": "^1.14.0",
+    "yarn": "^1.22.22"
   },
   "peerDependencies": {
     "react": "^18.0.0",

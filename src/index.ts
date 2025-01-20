@@ -43,6 +43,13 @@ export { Toaster } from "./components/toaster";
 export { Tooltip } from "./components/tooltip";
 export { Popover } from "./components/popover";
 
+export { Card } from "./components/card";
+export { Sidebar, useSidebar } from "./components/sidebar";
+export { Breadcrumb } from "./components/breadcrumb";
+export { Sheet } from "./components/sheet";
+export { Skeleton } from "./components/skeleton";
+export { Separator } from "./components/separator";
+
 // Hooks
 export { usePrompt } from "./hooks/use-prompt";
 export { useToast } from "./hooks/use-toast";
@@ -50,6 +57,7 @@ export { useToggleState } from "./hooks/use-toggle-state";
 
 // Utils
 export { clx } from "./utils/clx";
+export { useIsMobile } from "./utils/useMobile";
 
 // Types
 export * from "./types";

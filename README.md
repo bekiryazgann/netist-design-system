@@ -12,7 +12,7 @@
 
 
 ## Todo
-- [ ] Atoms 
+- [x] Atoms 
    - [x] Button
    - [x] Input
    - [x] Checkbox
@@ -20,22 +20,22 @@
    - [x] Switch
    - [x] Icon
    - [x] Avatar
-   - [ ] Color Picker
+   - [x] Skeleton
+   - [x] Separator
 - [ ] Molecules
    - [x] Form: Input, Checkbox, Radio Button, Select
-   - [x] Card: Header, Body, Footer
    - [x] Modal: Header, Body, Footer
    - [x] Tooltip
    - [x] Dropdown: Item, Divider
-   - [ ] Breadcrumbs: Link, Separator
+   - [x] Breadcrumb: Link, Separator
    - [x] Tabs: Tab, Content
    - [x] Pagination: PageNumber, PrevButton, NextButton
    - [x] Alert: Title, Message, CloseButton
-   - [ ] Banner: Title, Description, CTAButton
-   - [ ] Form Item: Label, Input, ValidationMessage
+   - [x] Card: Title, Content, Footer
+   - [x] Sheet: Trigger, Content, Header, Footer, Title, Description
 - [ ] Organisms
    - [ ] Navbar: Logo, NavLinks, Dropdown
-   - [ ] Sidebar: Menu, Submenu
+   - [x] Sidebar: Menu, Submenu
    - [ ] Data Table: Header, Row, Cell, SortingIndicator
    - [ ] File Upload: ProgressBar, FilePreview, RemoveButton
    - [ ] Date Picker: Calendar, InputField
