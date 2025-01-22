@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { Container } from "../container"
-import { Tabs } from "./tabs"
+import { Container } from "../container";
+import { Tabs } from "./tabs";
 
 const meta: Meta<typeof Tabs> = {
   title: "Components/Tabs",
@@ -10,11 +10,11 @@ const meta: Meta<typeof Tabs> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Tabs>
+type Story = StoryObj<typeof Tabs>;
 
 const Demo = () => {
   return (
@@ -32,9 +32,9 @@ const Demo = () => {
         </Container>
       </Tabs>
     </div>
-  )
-}
+  );
+};
 
 export const Default: Story = {
   render: () => <Demo />,
-}
+};

@@ -1,10 +1,6 @@
 "use client"
 
-import {
-    CheckCircleSolid,
-    CircleDottedLine,
-    CircleHalfSolid,
-} from "@medusajs/icons"
+import {Circle, StopCircle, CheckCircle} from "@netist/icons"
 import * as ProgressTabsPrimitives from "@radix-ui/react-tabs"
 import * as React from "react"
 
@@ -25,13 +21,13 @@ const ProgressIndicator = ({status, className, ...props}: IndicatorProps) => {
     const Icon = React.useMemo(() => {
         switch (status) {
             case "not-started":
-                return CircleDottedLine
+                return Circle
             case "in-progress":
-                return CircleHalfSolid
+                return StopCircle
             case "completed":
-                return CheckCircleSolid
+                return CheckCircle
             default:
-                return CircleDottedLine
+                return Circle
         }
     }, [status])
 
@@ -41,7 +37,7 @@ const ProgressIndicator = ({status, className, ...props}: IndicatorProps) => {
                   "text-ui-fg-muted group-data-[state=active]/trigger:text-ui-fg-interactive",
                   className
               )}>
-      <Icon/>
+      <Icon width={18} height={18}/>
     </span>
     )
 }

@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { Button } from "@/components/button"
-import { Badge } from "../../components/badge"
-import { Text } from "../../components/text"
-import { usePrompt } from "./use-prompt"
+import { Button } from "@/components/button";
+import { Badge } from "../../components/badge";
+import { Text } from "../../components/text";
+import { usePrompt } from "./use-prompt";
 
 type DemoProps = {
-  verificationText?: string
-}
+  verificationText?: string;
+};
 
 const Demo = ({ verificationText }: DemoProps) => {
-  const [status, setStatus] = React.useState(false)
-  const dialog = usePrompt()
+  const [status, setStatus] = React.useState(false);
+  const dialog = usePrompt();
 
   const handleDangerousAction = async () => {
     const confirmed = await dialog({
@@ -21,10 +21,10 @@ const Demo = ({ verificationText }: DemoProps) => {
         "Are you sure you want to delete this product? This action cannot be undone.",
       verificationText,
       variant: "danger",
-    })
+    });
 
-    setStatus(confirmed)
-  }
+    setStatus(confirmed);
+  };
 
   return (
     <div className="flex flex-col items-center gap-y-2">
@@ -35,8 +35,8 @@ const Demo = ({ verificationText }: DemoProps) => {
         Status: <Badge>{status ? "Confirmed" : "Unconfirmed"}</Badge>
       </Text>
     </div>
-  )
-}
+  );
+};
 
 const meta: Meta<typeof usePrompt> = {
   title: "Hooks/usePrompt",
@@ -44,16 +44,16 @@ const meta: Meta<typeof usePrompt> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Demo>
+type Story = StoryObj<typeof Demo>;
 
-export const Default: Story = {}
+export const Default: Story = {};
 
 export const WithVerificationText: Story = {
   args: {
     verificationText: "product",
   },
-}
+};

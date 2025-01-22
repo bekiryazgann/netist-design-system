@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronLeftMini, ChevronRightMini } from "@medusajs/icons"
+import { ChevronLeft, ChevronRight } from "@netist/icons"
 import * as React from "react"
 import {
   DayPicker,
@@ -75,8 +75,8 @@ const Calendar = ({
         ...classNames,
       }}
       components={{
-        IconLeft: () => <ChevronLeftMini />,
-        IconRight: () => <ChevronRightMini />,
+        IconLeft: () => <ChevronLeft />,
+        IconRight: () => <ChevronRight />,
         Day: Day,
       }}
       {...(props as SingleProps & RangeProps)}

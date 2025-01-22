@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { Button } from "@/components/button"
-import { Text } from "@/components/text"
-import { useToggleState } from "./use-toggle-state"
+import { Button } from "@/components/button";
+import { Text } from "@/components/text";
+import { useToggleState } from "./use-toggle-state";
 
 const Demo = () => {
-  const { state, open, close, toggle } = useToggleState()
+  const { state, open, close, toggle } = useToggleState();
 
   return (
     <div className="flex flex-col items-center gap-y-4">
@@ -17,8 +17,8 @@ const Demo = () => {
         <Button onClick={toggle}>Toggle</Button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const meta: Meta<typeof Demo> = {
   title: "Hooks/useToggleState",
@@ -26,10 +26,10 @@ const meta: Meta<typeof Demo> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Demo>
+type Story = StoryObj<typeof Demo>;
 
-export const Default: Story = {}
+export const Default: Story = {};

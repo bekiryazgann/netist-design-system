@@ -22,7 +22,7 @@
    - [x] Avatar
    - [x] Skeleton
    - [x] Separator
-- [ ] Molecules
+- [x] Molecules
    - [x] Form: Input, Checkbox, Radio Button, Select
    - [x] Modal: Header, Body, Footer
    - [x] Tooltip
@@ -38,21 +38,16 @@
    - [x] Sidebar: Menu, Submenu
    - [ ] Data Table: Header, Row, Cell, SortingIndicator
    - [ ] File Upload: ProgressBar, FilePreview, RemoveButton
-   - [ ] Date Picker: Calendar, InputField
+   - [x] Date Picker: Calendar, InputField
    - [x] Accordion: Header, Content
    - [ ] Filtering: FilterGroup, FilterOption, ResetButton
    - [ ] Feedback: SuccessMessage, ErrorMessage, WarningMessage
-- [ ] Templates
-   - [ ] Page Layout: Footer, Sidebar, Navbar, Content
-   - [ ] Dashboard Layout: Header, Sidebar, Widgets, Content
-   - [ ] Form Layout: Form, SubmitButton, ValidationMessages
-   - [ ] Feedback Layout: FeedbackMessage, RetryButton
 - [ ] Complex Components
    - [ ] Table with Virtualization: Row, Cell, VirtualScroll, Pagination
    - [ ] Tree View: Node, SubNode, ToggleIcon
    - [ ] Rich Text Editor: Toolbar, Editor, Preview
    - [ ] Charts & Graphs: Axis, DataPoint, Legend
-   - [x] Notifications (Toast): Message, CloseButton
+   - [ ] Notifications (Toast): Message, CloseButton (https://sonner.emilkowal.ski/)
    - [ ] Filtering Component: SearchInput, FilterCategory, ApplyButton
 
 

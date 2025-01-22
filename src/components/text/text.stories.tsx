@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { Text } from "./text"
+import { Text } from "./text";
 
 const meta: Meta<typeof Text> = {
   title: "Components/Text",
@@ -28,11 +28,11 @@ const meta: Meta<typeof Text> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Text>
+type Story = StoryObj<typeof Text>;
 
 export const BaseRegularSans: Story = {
   args: {
@@ -41,7 +41,7 @@ export const BaseRegularSans: Story = {
     family: "sans",
     children: "I am a paragraph",
   },
-}
+};
 
 export const BasePlusSans: Story = {
   args: {
@@ -50,7 +50,7 @@ export const BasePlusSans: Story = {
     family: "sans",
     children: "I am a paragraph",
   },
-}
+};
 
 export const LargeRegularSans: Story = {
   args: {
@@ -59,7 +59,7 @@ export const LargeRegularSans: Story = {
     family: "sans",
     children: "I am a paragraph",
   },
-}
+};
 
 export const LargePlusSans: Story = {
   args: {
@@ -68,7 +68,7 @@ export const LargePlusSans: Story = {
     family: "sans",
     children: "I am a paragraph",
   },
-}
+};
 
 export const XLargeRegularSans: Story = {
   args: {
@@ -77,7 +77,7 @@ export const XLargeRegularSans: Story = {
     family: "sans",
     children: "I am a paragraph",
   },
-}
+};
 
 export const XLargePlusSans: Story = {
   args: {
@@ -87,7 +87,7 @@ export const XLargePlusSans: Story = {
 
     children: "I am a paragraph",
   },
-}
+};
 
 export const BaseRegularMono: Story = {
   args: {
@@ -96,7 +96,7 @@ export const BaseRegularMono: Story = {
     family: "mono",
     children: "I am a paragraph",
   },
-}
+};
 
 export const BasePlusMono: Story = {
   args: {
@@ -105,7 +105,7 @@ export const BasePlusMono: Story = {
     family: "mono",
     children: "I am a paragraph",
   },
-}
+};
 
 export const LargeRegularMono: Story = {
   args: {
@@ -114,7 +114,7 @@ export const LargeRegularMono: Story = {
     family: "mono",
     children: "I am a paragraph",
   },
-}
+};
 
 export const LargePlusMono: Story = {
   args: {
@@ -123,7 +123,7 @@ export const LargePlusMono: Story = {
     family: "mono",
     children: "I am a paragraph",
   },
-}
+};
 
 export const XLargeRegularMono: Story = {
   args: {
@@ -132,7 +132,7 @@ export const XLargeRegularMono: Story = {
     family: "mono",
     children: "I am a paragraph",
   },
-}
+};
 
 export const XLargePlusMono: Story = {
   args: {
@@ -141,4 +141,4 @@ export const XLargePlusMono: Story = {
     family: "mono",
     children: "I am a paragraph",
   },
-}
+};

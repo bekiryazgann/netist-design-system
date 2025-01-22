@@ -1,4 +1,4 @@
-import { Spinner } from "@medusajs/icons"
+import { Loading02 } from "@netist/icons"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
 import * as React from "react"
@@ -78,7 +78,7 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
                 "bg-ui-bg-disabled absolute inset-0 flex items-center justify-center rounded-md"
               )}
             >
-              <Spinner className="animate-spin" />
+              <Loading02 className="animate-spin" />
             </div>
             {children}
           </span>

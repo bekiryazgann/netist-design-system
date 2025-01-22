@@ -1,19 +1,19 @@
 "use client"
 
-import {Time} from "@internationalized/date"
-import {Calendar as CalendarIcon, Minus} from "@medusajs/icons"
+import { Time } from "@internationalized/date"
+import { Calendar as CalendarIcon, Minus } from "@netist/icons"
 import * as Primitives from "@radix-ui/react-popover"
-import {TimeValue} from "@react-aria/datepicker"
-import {format} from "date-fns"
+import { TimeValue } from "@react-aria/datepicker"
+import { format } from "date-fns"
 import * as React from "react"
 
-import {Button} from "@/components/button"
-import {Calendar as CalendarPrimitive} from "@/components/calendar"
-import {TimeInput} from "@/components/time-input"
-import type {DateRange} from "@/types"
-import {clx} from "@/utils/clx"
-import {isBrowserLocaleClockType24h} from "@/utils/is-browser-locale-hour-cycle-24h"
-import {cva} from "class-variance-authority"
+import { Button } from "@/components/button"
+import { Calendar as CalendarPrimitive } from "@/components/calendar"
+import { TimeInput } from "@/components/time-input"
+import type { DateRange } from "@/types"
+import { clx } from "@/utils/clx"
+import { isBrowserLocaleClockType24h } from "@/utils/is-browser-locale-hour-cycle-24h"
+import { cva } from "class-variance-authority"
 
 const displayVariants = cva(
     clx(
@@ -39,25 +39,25 @@ const displayVariants = cva(
 const Display = React.forwardRef<
     HTMLButtonElement,
     React.ComponentProps<"button"> & {
-    placeholder?: string
-    size?: "small" | "base"
-}
->(({className, children, placeholder, size = "base", ...props}, ref) => {
+        placeholder?: string
+        size?: "small" | "base"
+    }
+>(({ className, children, placeholder, size = "base", ...props }, ref) => {
     return (
         <Primitives.Trigger asChild>
             <button
                 ref={ref}
-                className={clx(displayVariants({size}), className)}
+                className={clx(displayVariants({ size }), className)}
                 {...props}
             >
-                <CalendarIcon className="text-ui-fg-muted"/>
+                <CalendarIcon className="text-ui-fg-muted" />
                 <span className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left">
-          {children ? (
-              children
-          ) : placeholder ? (
-              <span className="text-ui-fg-muted">{placeholder}</span>
-          ) : null}
-        </span>
+                    {children ? (
+                        children
+                    ) : placeholder ? (
+                        <span className="text-ui-fg-muted">{placeholder}</span>
+                    ) : null}
+                </span>
             </button>
         </Primitives.Trigger>
     )
@@ -67,7 +67,7 @@ Display.displayName = "DatePicker.Display"
 const Flyout = React.forwardRef<
     React.ElementRef<typeof Primitives.Content>,
     React.ComponentProps<typeof Primitives.Content>
->(({className, children, ...props}, ref) => {
+>(({ className, children, ...props }, ref) => {
     return (
         <Primitives.Portal>
             <Primitives.Content
@@ -108,10 +108,10 @@ type PresetContainerProps<TPreset extends Preset, TValue> = {
 }
 
 const PresetContainer = <TPreset extends Preset, TValue>({
-                                                             presets,
-                                                             onSelect,
-                                                             currentValue,
-                                                         }: PresetContainerProps<TPreset, TValue>) => {
+    presets,
+    onSelect,
+    currentValue,
+}: PresetContainerProps<TPreset, TValue>) => {
     const isDateRangePresets = (preset: any): preset is DateRangePreset => {
         return "dateRange" in preset
     }
@@ -252,16 +252,16 @@ interface SingleProps extends PickerProps {
 }
 
 const SingleDatePicker = ({
-                              defaultValue,
-                              value,
-                              size = "base",
-                              onChange,
-                              presets,
-                              showTimePicker,
-                              disabled,
-                              className,
-                              ...props
-                          }: SingleProps) => {
+    defaultValue,
+    value,
+    size = "base",
+    onChange,
+    presets,
+    showTimePicker,
+    disabled,
+    className,
+    ...props
+}: SingleProps) => {
     const [open, setOpen] = React.useState(false)
     const [date, setDate] = React.useState<Date | undefined>(
         value ?? defaultValue ?? undefined
@@ -427,7 +427,11 @@ const SingleDatePicker = ({
                                 <div className="border-ui-border-base border-t p-3">
                                     <TimeInput
                                         aria-label="Time"
-                                        onChange={onTimeChange}
+                                        onChange={(value) => {
+                                            if (value !== null) {
+                                                onTimeChange(value);
+                                            }
+                                        }}
                                         isDisabled={!date}
                                         value={time}
                                         isRequired={props.required}
@@ -468,16 +472,16 @@ interface RangeProps extends PickerProps {
 }
 
 const RangeDatePicker = ({
-                             defaultValue,
-                             value,
-                             onChange,
-                             size = "base",
-                             showTimePicker,
-                             presets,
-                             disabled,
-                             className,
-                             ...props
-                         }: RangeProps) => {
+    defaultValue,
+    value,
+    onChange,
+    size = "base",
+    showTimePicker,
+    presets,
+    disabled,
+    className,
+    ...props
+}: RangeProps) => {
     const [open, setOpen] = React.useState(false)
     const [range, setRange] = React.useState<DateRange | undefined>(
         value ?? defaultValue ?? undefined
@@ -635,9 +639,8 @@ const RangeDatePicker = ({
             return null
         }
 
-        return `${range.from ? formatDate(range.from, showTimePicker) : ""} - ${
-            range.to ? formatDate(range.to, showTimePicker) : ""
-        }`
+        return `${range.from ? formatDate(range.from, showTimePicker) : ""} - ${range.to ? formatDate(range.to, showTimePicker) : ""
+            }`
     }, [range, showTimePicker])
 
     const onApply = () => {
@@ -694,18 +697,26 @@ const RangeDatePicker = ({
                                         <span className="text-ui-fg-subtle">Start:</span>
                                         <TimeInput
                                             value={startTime}
-                                            onChange={(v) => onTimeChange(v, "start")}
+                                            onChange={(v) => {
+                                                if (v !== null) {
+                                                    onTimeChange(v, "start");
+                                                }
+                                            }}
                                             aria-label="Start date time"
                                             isDisabled={!range?.from}
                                             isRequired={props.required}
                                         />
                                     </div>
-                                    <Minus className="text-ui-fg-muted"/>
+                                    <Minus className="text-ui-fg-muted" />
                                     <div className="flex flex-1 items-center gap-x-2">
                                         <span className="text-ui-fg-subtle">End:</span>
                                         <TimeInput
                                             value={endTime}
-                                            onChange={(v) => onTimeChange(v, "end")}
+                                            onChange={(v) => {
+                                                if (v !== null) {
+                                                    onTimeChange(v, "end");
+                                                }
+                                            }}
                                             aria-label="End date time"
                                             isDisabled={!range?.to}
                                             isRequired={props.required}
@@ -737,27 +748,27 @@ const RangeDatePicker = ({
 
 type DatePickerProps = (
     | {
-    mode?: "single"
-    presets?: DatePreset[]
-    defaultValue?: Date
-    value?: Date
-    onChange?: (date: Date | undefined) => void
-}
+        mode?: "single"
+        presets?: DatePreset[]
+        defaultValue?: Date
+        value?: Date
+        onChange?: (date: Date | undefined) => void
+    }
     | {
-    mode: "range"
-    presets?: DateRangePreset[]
-    defaultValue?: DateRange
-    value?: DateRange
-    onChange?: (dateRange: DateRange | undefined) => void
-}
-    ) &
+        mode: "range"
+        presets?: DateRangePreset[]
+        defaultValue?: DateRange
+        value?: DateRange
+        onChange?: (dateRange: DateRange | undefined) => void
+    }
+) &
     PickerProps
 
 const validatePresets = (
     presets: DateRangePreset[] | DatePreset[],
     rules: PickerProps
 ) => {
-    const {toYear, fromYear, fromMonth, toMonth, fromDay, toDay} = rules
+    const { toYear, fromYear, fromMonth, toMonth, fromDay, toDay } = rules
 
     if (presets && presets.length > 0) {
         const fromYearToUse = fromYear
@@ -870,8 +881,7 @@ const validatePresets = (
 
                     if (presetDay && presetDay < fromDay.getDate()) {
                         throw new Error(
-                            `Preset ${
-                                preset.dateRange.from
+                            `Preset ${preset.dateRange.from
                             }'s 'from' is before fromDay ${format(fromDay, "MMM dd, yyyy")}.`
                         )
                     }
@@ -894,7 +904,7 @@ const validatePresets = (
     }
 }
 
-const DatePicker = ({mode = "single", ...props}: DatePickerProps) => {
+const DatePicker = ({ mode = "single", ...props }: DatePickerProps) => {
     if (props.presets) {
         validatePresets(props.presets, props)
     }
@@ -906,4 +916,4 @@ const DatePicker = ({mode = "single", ...props}: DatePickerProps) => {
     return <RangeDatePicker {...(props as RangeProps)} />
 }
 
-export {DatePicker}
+export { DatePicker }

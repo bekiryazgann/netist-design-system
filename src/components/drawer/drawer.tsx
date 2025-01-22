@@ -1,6 +1,7 @@
 "use client"
 
-import {XMark} from "@medusajs/icons"
+
+import {X} from "@netist/icons"
 import * as DrawerPrimitives from "@radix-ui/react-dialog"
 import * as React from "react"
 
@@ -89,7 +90,7 @@ const DrawerHeader = React.forwardRef<
             <div className="flex items-center gap-x-2">
                 <DrawerPrimitives.Close asChild>
                     <IconButton variant="transparent">
-                        <XMark/>
+                        <X/>
                     </IconButton>
                 </DrawerPrimitives.Close>
             </div>

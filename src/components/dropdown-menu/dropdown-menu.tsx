@@ -1,6 +1,6 @@
 "use client"
 
-import { CheckMini, ChevronRightMini, EllipseMiniSolid } from "@medusajs/icons"
+import { Check, ChevronRight } from "@netist/icons"
 import * as Primitives from "@radix-ui/react-dropdown-menu"
 import * as React from "react"
 
@@ -34,7 +34,7 @@ const SubMenuTrigger = React.forwardRef<
     {...props}
   >
     {children}
-    <ChevronRightMini className="ml-auto" />
+    <ChevronRight className="ml-auto" />
   </Primitives.SubTrigger>
 ))
 SubMenuTrigger.displayName = "DropdownMenu.SubMenuTrigger"
@@ -120,7 +120,7 @@ const CheckboxItem = React.forwardRef<
   >
     <span className="absolute left-3 flex h-5 w-5 items-center justify-center">
       <Primitives.ItemIndicator>
-        <CheckMini />
+        <Check />
       </Primitives.ItemIndicator>
     </span>
     {children}
@@ -142,7 +142,7 @@ const RadioItem = React.forwardRef<
   >
     <span className="absolute left-3 flex h-5 w-5 items-center justify-center">
       <Primitives.ItemIndicator>
-        <EllipseMiniSolid className="text-ui-fg-base" />
+        <Check className="text-ui-fg-base" />
       </Primitives.ItemIndicator>
     </span>
     {children}

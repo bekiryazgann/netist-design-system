@@ -38,8 +38,7 @@ export { Tag } from "./components/tag";
 export { Text } from "./components/text";
 export { Textarea } from "./components/textarea";
 export { TimeInput } from "./components/time-input";
-export { Toast } from "./components/toast";
-export { Toaster } from "./components/toaster";
+export { Toaster, toast } from "./components/toast";
 export { Tooltip } from "./components/tooltip";
 export { Popover } from "./components/popover";
 
@@ -52,7 +51,6 @@ export { Separator } from "./components/separator";
 
 // Hooks
 export { usePrompt } from "./hooks/use-prompt";
-export { useToast } from "./hooks/use-toast";
 export { useToggleState } from "./hooks/use-toggle-state";
 
 // Utils

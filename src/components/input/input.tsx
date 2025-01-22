@@ -1,6 +1,6 @@
 "use client"
 
-import { Eye, EyeSlash, MagnifyingGlassMini } from "@medusajs/icons"
+import {Eye, EyeOff, SearchRefraction} from "@netist/icons"
 import { VariantProps, cva } from "class-variance-authority"
 import * as React from "react"
 
@@ -72,7 +72,7 @@ const Input = React.forwardRef<
           )}
           role="img"
         >
-          <MagnifyingGlassMini />
+          <SearchRefraction />
         </div>
       )}
       {isPassword && (
@@ -95,7 +95,7 @@ const Input = React.forwardRef<
             <span className="sr-only">
               {typeState === "password" ? "Show password" : "Hide password"}
             </span>
-            {typeState === "password" ? <Eye /> : <EyeSlash />}
+            {typeState === "password" ? <Eye /> : <EyeOff />}
           </button>
         </div>
       )}

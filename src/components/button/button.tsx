@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import * as React from "react"
 
 import { clx } from "@/utils/clx"
-import { Spinner } from "@medusajs/icons"
+import { Loading02 } from "@netist/icons"
 
 const buttonVariants = cva(
   clx(
@@ -86,7 +86,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
                 "bg-ui-bg-disabled absolute inset-0 flex items-center justify-center rounded-md"
               )}
             >
-              <Spinner className="animate-spin" />
+              <Loading02 className="animate-spin animate-pulse" />
             </div>
             {children}
           </span>

@@ -1,6 +1,6 @@
 "use client"
 
-import {ChevronUpDown, EllipseMiniSolid} from "@medusajs/icons"
+import {ChevronSelectorVertical, Check} from "@netist/icons"
 import * as SelectPrimitive from "@radix-ui/react-select"
 import {cva} from "class-variance-authority"
 import * as React from "react"
@@ -75,7 +75,7 @@ const Trigger = React.forwardRef<
         >
             {children}
             <SelectPrimitive.Icon asChild>
-                <ChevronUpDown className="text-ui-fg-muted group-disabled/trigger:text-ui-fg-disabled"/>
+                <ChevronSelectorVertical className="text-ui-fg-muted group-disabled/trigger:text-ui-fg-disabled"/>
             </SelectPrimitive.Icon>
         </SelectPrimitive.Trigger>
     )
@@ -171,7 +171,7 @@ const Item = React.forwardRef<
         >
       <span className="flex h-5 w-5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
-          <EllipseMiniSolid/>
+          <Check/>
         </SelectPrimitive.ItemIndicator>
       </span>
             <SelectPrimitive.ItemText className="flex-1 truncate">

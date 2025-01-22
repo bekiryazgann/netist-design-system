@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { Label } from "./label"
+import { Label } from "./label";
 
 const meta: Meta<typeof Label> = {
   title: "Components/Label",
@@ -22,11 +22,11 @@ const meta: Meta<typeof Label> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Label>
+type Story = StoryObj<typeof Label>;
 
 export const BaseRegular: Story = {
   args: {
@@ -34,7 +34,7 @@ export const BaseRegular: Story = {
     weight: "regular",
     children: "I am a label",
   },
-}
+};
 
 export const BasePlus: Story = {
   args: {
@@ -42,7 +42,7 @@ export const BasePlus: Story = {
     weight: "plus",
     children: "I am a label",
   },
-}
+};
 
 export const LargeRegular: Story = {
   args: {
@@ -50,7 +50,7 @@ export const LargeRegular: Story = {
     weight: "regular",
     children: "I am a label",
   },
-}
+};
 
 export const LargePlus: Story = {
   args: {
@@ -58,7 +58,7 @@ export const LargePlus: Story = {
     weight: "plus",
     children: "I am a label",
   },
-}
+};
 
 export const SmallRegular: Story = {
   args: {
@@ -66,7 +66,7 @@ export const SmallRegular: Story = {
     weight: "regular",
     children: "I am a label",
   },
-}
+};
 
 export const SmallPlus: Story = {
   args: {
@@ -74,7 +74,7 @@ export const SmallPlus: Story = {
     weight: "plus",
     children: "I am a label",
   },
-}
+};
 
 export const XSmallRegular: Story = {
   args: {
@@ -82,4 +82,4 @@ export const XSmallRegular: Story = {
     weight: "regular",
     children: "I am a label",
   },
-}
+};

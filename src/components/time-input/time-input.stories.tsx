@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { isBrowserLocaleClockType24h } from "../../utils/is-browser-locale-hour-cycle-24h"
-import { TimeInput } from "./time-input"
+import { isBrowserLocaleClockType24h } from "../../utils/is-browser-locale-hour-cycle-24h";
+import { TimeInput } from "./time-input";
 
 const meta: Meta<typeof TimeInput> = {
   title: "Components/TimeInput",
@@ -15,11 +15,11 @@ const meta: Meta<typeof TimeInput> = {
       <TimeInput aria-labelledby="time" {...args} />
     </div>
   ),
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof TimeInput>
+type Story = StoryObj<typeof TimeInput>;
 
 // Hour Cycle defaults to your browser's locale.
 export const Default: Story = {
@@ -39,18 +39,18 @@ export const Default: Story = {
           </div>
         </div>
       </div>
-    )
+    );
   },
-}
+};
 
 export const Hour24: Story = {
   args: {
     hourCycle: 24,
   },
-}
+};
 
 export const Hour12: Story = {
   args: {
     hourCycle: 12,
   },
-}
+};

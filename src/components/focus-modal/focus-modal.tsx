@@ -1,6 +1,6 @@
 "use client"
 
-import { XMark } from "@medusajs/icons"
+import { X } from "@netist/icons"
 import * as FocusModalPrimitives from "@radix-ui/react-dialog"
 import * as React from "react"
 
@@ -84,7 +84,7 @@ const FocusModalHeader = React.forwardRef<
       <div className="flex items-center gap-x-2">
         <FocusModalPrimitives.Close asChild>
           <IconButton variant="transparent">
-            <XMark />
+            <X />
           </IconButton>
         </FocusModalPrimitives.Close>
       </div>

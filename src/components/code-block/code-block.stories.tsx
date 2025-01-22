@@ -1,8 +1,8 @@
-import React from "react"
-import type { Meta, StoryObj } from "@storybook/react"
+import React from "react";
+import type { Meta, StoryObj } from "@storybook/react";
 
-import { CodeBlock } from "./code-block"
-import { Label } from "../label"
+import { CodeBlock } from "./code-block";
+import { Label } from "../label";
 
 const meta: Meta<typeof CodeBlock> = {
   title: "Components/CodeBlock",
@@ -10,11 +10,11 @@ const meta: Meta<typeof CodeBlock> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof CodeBlock>
+type Story = StoryObj<typeof CodeBlock>;
 
 const snippets = [
   {
@@ -32,7 +32,7 @@ const snippets = [
     language: "tsx",
     code: `// Install the React SDK and required dependencies in your storefront project:\n// medusa-react @tanstack/react-query @medusajs/medusa\n\nimport { useProduct } from "medusa-react"\n\nconst { product } = useProduct("PRODUCT_ID")\nconsole.log(product.id)`,
   },
-]
+];
 
 export const Default: Story = {
   render: () => {
@@ -47,6 +47,6 @@ export const Default: Story = {
           <CodeBlock.Body />
         </CodeBlock>
       </div>
-    )
+    );
   },
-}
+};

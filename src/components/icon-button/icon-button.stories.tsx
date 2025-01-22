@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { Plus } from "@medusajs/icons"
-import { IconButton } from "./icon-button"
+import { Plus } from "@netist/icons";
+import { IconButton } from "./icon-button";
 
 const meta: Meta<typeof IconButton> = {
   title: "Components/IconButton",
@@ -10,11 +10,11 @@ const meta: Meta<typeof IconButton> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof IconButton>
+type Story = StoryObj<typeof IconButton>;
 
 export const BasePrimary: Story = {
   args: {
@@ -22,7 +22,7 @@ export const BasePrimary: Story = {
     size: "base",
     children: <Plus />,
   },
-}
+};
 
 export const BaseTransparent: Story = {
   args: {
@@ -30,7 +30,7 @@ export const BaseTransparent: Story = {
     size: "base",
     children: <Plus />,
   },
-}
+};
 
 export const LargePrimary: Story = {
   args: {
@@ -38,7 +38,7 @@ export const LargePrimary: Story = {
     size: "large",
     children: <Plus />,
   },
-}
+};
 
 export const LargeTransparent: Story = {
   args: {
@@ -46,7 +46,7 @@ export const LargeTransparent: Story = {
     size: "large",
     children: <Plus />,
   },
-}
+};
 
 export const XLargePrimary: Story = {
   args: {
@@ -54,7 +54,7 @@ export const XLargePrimary: Story = {
     size: "xlarge",
     children: <Plus />,
   },
-}
+};
 
 export const XLargeTransparent: Story = {
   args: {
@@ -62,7 +62,7 @@ export const XLargeTransparent: Story = {
     size: "xlarge",
     children: <Plus />,
   },
-}
+};
 
 export const Disabled: Story = {
   args: {
@@ -71,7 +71,7 @@ export const Disabled: Story = {
     children: <Plus />,
     disabled: true,
   },
-}
+};
 
 export const IsLoading: Story = {
   args: {
@@ -80,4 +80,4 @@ export const IsLoading: Story = {
     children: <Plus />,
     isLoading: true,
   },
-}
+};

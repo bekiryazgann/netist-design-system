@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { Button } from "@/components/button"
-import { Copy } from "./copy"
+import { Button } from "@/components/button";
+import { Copy } from "./copy";
 
 const meta: Meta<typeof Copy> = {
   title: "Components/Copy",
@@ -10,17 +10,17 @@ const meta: Meta<typeof Copy> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Copy>
+type Story = StoryObj<typeof Copy>;
 
 export const Default: Story = {
   args: {
     content: "Hello world",
   },
-}
+};
 
 export const AsChild: Story = {
   args: {
@@ -28,4 +28,4 @@ export const AsChild: Story = {
     asChild: true,
     children: <Button className="text-ui-fg-on-color">Copy</Button>,
   },
-}
+};

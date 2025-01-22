@@ -1,7 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { VariantProps, cva } from "class-variance-authority"
-import { SidebarLeft } from "@medusajs/icons"
+import { LayoutLeft } from "@netist/icons"
 
 import {clx} from "@/utils/clx";
 import {useIsMobile} from "@/utils/useMobile";
@@ -268,7 +268,7 @@ const Trigger = ({ className, onClick, ...props }: SidebarTriggerProps) => {
             }}
             {...props}
         >
-            <SidebarLeft />
+            <LayoutLeft width={18} height={18} />
             <span className="sr-only">Toggle Sidebar</span>
         </IconButton>
     )

@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { CurrencyInput } from "./currency-input"
+import { CurrencyInput } from "./currency-input";
 
 const meta: Meta<typeof CurrencyInput> = {
   title: "Components/CurrencyInput",
@@ -9,18 +9,18 @@ const meta: Meta<typeof CurrencyInput> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof CurrencyInput>
+type Story = StoryObj<typeof CurrencyInput>;
 
 export const Default: Story = {
   args: {
     symbol: "$",
     code: "usd",
   },
-}
+};
 
 export const InGrid: Story = {
   render: (args) => {
@@ -30,10 +30,10 @@ export const InGrid: Story = {
         <CurrencyInput {...args} />
         <CurrencyInput {...args} />
       </div>
-    )
+    );
   },
   args: {
     symbol: "$",
     code: "usd",
   },
-}
+};

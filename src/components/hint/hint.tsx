@@ -1,8 +1,8 @@
 import { VariantProps, cva } from "class-variance-authority"
 import * as React from "react"
 
-import { ExclamationCircleSolid } from "@medusajs/icons"
-import { clx } from "../../utils/clx"
+import { AlertCircle } from "@netist/icons"
+import { clx } from "@/utils/clx"
 
 const hintVariants = cva(
   "txt-compact-xsmall inline-flex items-center gap-x-2",
@@ -30,7 +30,7 @@ const Hint = React.forwardRef<HTMLSpanElement, HintProps>(
         className={clx(hintVariants({ variant }), className)}
         {...props}
       >
-        {variant === "error" && <ExclamationCircleSolid />}
+        {variant === "error" && <AlertCircle width={18} height={18} />}
         {children}
       </span>
     )

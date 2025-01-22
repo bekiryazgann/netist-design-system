@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
-import { ChevronRight, EllipsisHorizontal } from "@medusajs/icons"
+import { ChevronRight, DotsHorizontal } from '@netist/icons';
+
 
 import {clx} from "@/utils/clx";
 
@@ -91,7 +92,7 @@ const Ellipsis = ({className, ...props}: React.ComponentProps<"span">) => (
         className={clx("flex h-9 w-9 items-center justify-center", className)}
         {...props}
     >
-    <EllipsisHorizontal className="h-4 w-4" />
+    <DotsHorizontal className="h-4 w-4" />
     <span className="sr-only">More</span>
   </span>
 )

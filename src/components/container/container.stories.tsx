@@ -1,18 +1,18 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { Heading } from "@/components/heading"
-import { Text } from "@/components/text"
-import { Container } from "./container"
+import { Heading } from "@/components/heading";
+import { Text } from "@/components/text";
+import { Container } from "./container";
 
 const meta: Meta<typeof Container> = {
   title: "Components/Container",
   component: Container,
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Container>
+type Story = StoryObj<typeof Container>;
 
 export const Default: Story = {
   args: {
@@ -21,7 +21,7 @@ export const Default: Story = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
 export const InLayout: Story = {
   render: () => (
@@ -45,4 +45,4 @@ export const InLayout: Story = {
   parameters: {
     layout: "fullscreen",
   },
-}
+};

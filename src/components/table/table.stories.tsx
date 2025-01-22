@@ -1,7 +1,7 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import * as React from "react"
+import type { Meta, StoryObj } from "@storybook/react";
+import * as React from "react";
 
-import { Table } from "./table"
+import { Table } from "./table";
 
 const meta: Meta<typeof Table> = {
   title: "Components/Table",
@@ -9,20 +9,20 @@ const meta: Meta<typeof Table> = {
   parameters: {
     layout: "centered",
   },
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Table>
+type Story = StoryObj<typeof Table>;
 
 type Order = {
-  id: string
-  displayId: number
-  customer: string
-  email: string
-  amount: number
-  currency: string
-}
+  id: string;
+  displayId: number;
+  customer: string;
+  email: string;
+  amount: number;
+  currency: string;
+};
 
 const firstNames = [
   "Charles",
@@ -35,7 +35,7 @@ const firstNames = [
   "Jack",
   "Jill",
   "Jenny",
-]
+];
 const lastNames = [
   "Brown",
   "Smith",
@@ -47,36 +47,36 @@ const lastNames = [
   "Garcia",
   "Rodriguez",
   "Wilson",
-]
-const currencies = ["USD", "EUR", "GBP", "JPY"]
+];
+const currencies = ["USD", "EUR", "GBP", "JPY"];
 
 function makeDate(x: number): Order[] {
   // get random name
   const getRandomName = () => {
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)]
-    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)]
-    return `${firstName} ${lastName}`
-  }
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+    return `${firstName} ${lastName}`;
+  };
 
   const getRandomId = () => {
-    return `order_${Math.floor(Math.random() * 100000)}`
-  }
+    return `order_${Math.floor(Math.random() * 100000)}`;
+  };
 
   const getRandomDisplayId = () => {
-    return Math.floor(Math.random() * 100000)
-  }
+    return Math.floor(Math.random() * 100000);
+  };
 
   const getRandomAmount = () => {
-    return Math.floor(Math.random() * 1000)
-  }
+    return Math.floor(Math.random() * 1000);
+  };
 
   const getRandomCurrency = () => {
-    return currencies[Math.floor(Math.random() * currencies.length)]
-  }
+    return currencies[Math.floor(Math.random() * currencies.length)];
+  };
 
   const getRandomEmail = () => {
-    return `${Math.floor(Math.random() * 100000)}@gmail.com`
-  }
+    return `${Math.floor(Math.random() * 100000)}@gmail.com`;
+  };
 
   // Create x random orders and resolve them after 1 second
   const orders = Array.from({ length: x }, () => ({
@@ -86,68 +86,68 @@ function makeDate(x: number): Order[] {
     email: getRandomEmail(),
     amount: getRandomAmount(),
     currency: getRandomCurrency(),
-  }))
+  }));
 
-  return orders
+  return orders;
 }
 
 type UseFakeOrdersProps = {
-  limit: number
-  offset: number
-}
+  limit: number;
+  offset: number;
+};
 
 const useFakeOrders = ({ offset, limit }: UseFakeOrdersProps) => {
-  const COUNT = 1000
+  const COUNT = 1000;
 
-  const [orders, setOrders] = React.useState<Order[]>(makeDate(limit))
-  const [offsetState, setOffsetState] = React.useState<number | undefined>(0)
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [orders, setOrders] = React.useState<Order[]>(makeDate(limit));
+  const [offsetState, setOffsetState] = React.useState<number | undefined>(0);
+  const [isLoading, setIsLoading] = React.useState(false);
 
   // Fake API call
   React.useEffect(() => {
     const fetchOrders = async () => {
       if (offset === offsetState) {
-        return
+        return;
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 500))
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       if (offset > COUNT) {
-        return
+        return;
       }
 
-      const newOrders = makeDate(limit)
+      const newOrders = makeDate(limit);
 
-      setOrders(newOrders)
+      setOrders(newOrders);
 
-      setOffsetState(offset)
-    }
+      setOffsetState(offset);
+    };
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     fetchOrders().then(() => {
-      setIsLoading(false)
-    })
-  }, [offset, limit, orders, offsetState])
+      setIsLoading(false);
+    });
+  }, [offset, limit, orders, offsetState]);
 
   return {
     orders,
     isLoading,
     count: COUNT,
-  }
-}
+  };
+};
 
-const fakeData = makeDate(10)
+const fakeData = makeDate(10);
 
-console.log(JSON.stringify(fakeData, null, 2))
+console.log(JSON.stringify(fakeData, null, 2));
 
 const formatCurrency = (amount: number, currency: string) => {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency,
     signDisplay: "always",
-  }).format(amount)
-}
+  }).format(amount);
+};
 
 export const Default: Story = {
   render: () => {
@@ -180,40 +180,40 @@ export const Default: Story = {
                     {order.currency}
                   </Table.Cell>
                 </Table.Row>
-              )
+              );
             })}
           </Table.Body>
         </Table>
       </div>
-    )
+    );
   },
-}
+};
 
 const PaginatedDemo = () => {
-  const [pageIndex, setPageIndex] = React.useState(0)
-  const pageSize = 10
+  const [pageIndex, setPageIndex] = React.useState(0);
+  const pageSize = 10;
 
   const { orders, isLoading, count } = useFakeOrders({
     offset: pageIndex * pageSize,
     limit: pageSize,
-  })
+  });
 
-  const pageCount = Math.ceil(count / pageSize)
+  const pageCount = Math.ceil(count / pageSize);
 
-  const canNextPage = pageIndex < pageCount - 1 && !isLoading
-  const canPreviousPage = pageIndex > 0 && !isLoading
+  const canNextPage = pageIndex < pageCount - 1 && !isLoading;
+  const canPreviousPage = pageIndex > 0 && !isLoading;
 
   const nextPage = () => {
     if (canNextPage) {
-      setPageIndex(pageIndex + 1)
+      setPageIndex(pageIndex + 1);
     }
-  }
+  };
 
   const previousPage = () => {
     if (canPreviousPage) {
-      setPageIndex(pageIndex - 1)
+      setPageIndex(pageIndex - 1);
     }
-  }
+  };
 
   return (
     <div className="flex w-[80vw] flex-col items-center justify-center">
@@ -242,7 +242,7 @@ const PaginatedDemo = () => {
                   {order.currency}
                 </Table.Cell>
               </Table.Row>
-            )
+            );
           })}
         </Table.Body>
       </Table>
@@ -270,11 +270,11 @@ const PaginatedDemo = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const Paginated: Story = {
   render: () => {
-    return <PaginatedDemo />
+    return <PaginatedDemo />;
   },
-}
+};
