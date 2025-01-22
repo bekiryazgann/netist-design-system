@@ -25,9 +25,7 @@ export const Default: Story = {
 export const InGrid: Story = {
   render: (args) => {
     return (
-      <div className="grid w-full grid-cols-3">
-        <CurrencyInput {...args} />
-        <CurrencyInput {...args} />
+      <div className="w-full">
         <CurrencyInput {...args} />
       </div>
     );

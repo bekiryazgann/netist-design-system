@@ -40,15 +40,16 @@
    - [ ] File Upload: ProgressBar, FilePreview, RemoveButton
    - [x] Date Picker: Calendar, InputField
    - [x] Accordion: Header, Content
-   - [ ] Filtering: FilterGroup, FilterOption, ResetButton
+   - [ ] Filtering: FilterGroup, FilterOption, ResetButton, Apply Button
    - [ ] Feedback: SuccessMessage, ErrorMessage, WarningMessage
 - [ ] Complex Components
    - [ ] Table with Virtualization: Row, Cell, VirtualScroll, Pagination
    - [ ] Tree View: Node, SubNode, ToggleIcon
-   - [ ] Rich Text Editor: Toolbar, Editor, Preview
-   - [ ] Charts & Graphs: Axis, DataPoint, Legend
-   - [ ] Notifications (Toast): Message, CloseButton (https://sonner.emilkowal.ski/)
-   - [ ] Filtering Component: SearchInput, FilterCategory, ApplyButton
+   - [x] Rich Text Editor: Toolbar, Editor, Preview
+   - [x] Charts & Graphs: Axis, DataPoint, Legend
+   - [x] Notifications (Toast): Message, CloseButton (https://sonner.emilkowal.ski/)
+- [ ] Todos
+  - [ ] The rich editor will be broken down into a more configurable state: Eg. Rich Rich.Content Rich.Toolbar Rich.Bottom
 
 
 ## Utilities & Helpers
