@@ -44,7 +44,7 @@ export { Popover } from "./components/popover";
 
 export { Card } from "./components/card";
 export { Chart, type ChartConfig } from "./components/chart";
-export { Rich } from "./components/rich";
+export { Rich, type RichConfig, useRich } from "./components/rich";
 export { Sidebar, useSidebar } from "./components/sidebar";
 export { Breadcrumb } from "./components/breadcrumb";
 export { Sheet } from "./components/sheet";

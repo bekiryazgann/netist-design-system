@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from "react"
-import { useEditor, EditorContent } from '@tiptap/react'
+import React, {useEffect, useRef, useState, createContext} from "react"
+import {useEditor, EditorContent} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import FontFamily from '@tiptap/extension-font-family'
 import TextStyle from '@tiptap/extension-text-style'
-import { TextAlign } from '@tiptap/extension-text-align'
-import { CharacterCount } from '@tiptap/extension-character-count'
+import {TextAlign} from '@tiptap/extension-text-align'
+import {CharacterCount} from '@tiptap/extension-character-count'
 import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
@@ -32,62 +32,204 @@ import {
     ListBulleted,
     ListNumbered
 } from "@netist/icons";
-import {Heading} from "@tiptap/extension-heading";
+import {Editor} from "@tiptap/core";
 
-interface RootProps{
+interface EditorWithStorage extends Editor {
+    storage: {
+        characterCount: number;
+        wordCount: number;
+    }
+}
+
+type RichContext = {
+    editor: EditorWithStorage | null
+    setEditor: (editor: EditorWithStorage | null) => void
+    config: RichConfig
+    characterCount: number
+    wordCount: number
+}
+
+interface ToolbarConfig {
+    fonts?: {
+        enabled?: boolean
+        options?: string[]
+    }
+    bold?: boolean
+    italic?: boolean
+    strike?: boolean
+    code?: boolean
+    bulletList?: boolean
+    orderedList?: boolean
+    alignment?: boolean
+    table?: boolean
+}
+
+interface EditorConfig {
+    characterLimit?: number
+    placeholder?: string
+    height?: {
+        min?: string
+        max?: string
+    }
+}
+
+interface RichConfig {
+    toolbar?: ToolbarConfig
+    editor?: EditorConfig
+}
+
+const defaultConfig: RichConfig = {
+    toolbar: {
+        fonts: {
+            enabled: true,
+            options: ["Arial", "Verdana", "Tahoma", "Trebuchet MS", "Times New Roman", "Georgia", "Garamond", "Courier New", "Brush Script MT"]
+        },
+        bold: true,
+        italic: true,
+        strike: true,
+        code: true,
+        bulletList: true,
+        orderedList: true,
+        alignment: true,
+        table: true
+    },
+    editor: {
+        characterLimit: 5600,
+        height: {
+            min: '300px',
+            max: '300px'
+        }
+    }
+}
+
+const RichContext = createContext<RichContext>({
+    editor: null,
+    setEditor: () => {
+    },
+    config: defaultConfig,
+    characterCount: 0,
+    wordCount: 0
+})
+
+const useRich = () => {
+    const context = React.useContext(RichContext)
+    if (!context) {
+        throw new Error('useRich must be used within a RichProvider')
+    }
+    return context
+}
+
+interface RootProps {
+    children: React.ReactNode
+    config?: RichConfig,
+    className?: string
+}
+
+const Root = ({children, config = defaultConfig, className}: RootProps) => {
+    const [editor, setEditor] = useState<EditorWithStorage | null>(null)
+    const [characterCount] = useState(0)
+    const [wordCount] = useState(0)
+
+    const mergedConfig = React.useMemo(() => {
+        return {
+            toolbar: {
+                ...defaultConfig.toolbar,
+                ...config?.toolbar,
+            },
+            editor: {
+                ...defaultConfig.editor,
+                ...config?.editor,
+                height: {
+                    ...defaultConfig.editor?.height,
+                    ...config?.editor?.height
+                }
+            }
+        }
+    }, [config])
+
+    const contextValue = React.useMemo(
+        () => ({
+            editor,
+            setEditor,
+            config: mergedConfig,
+            characterCount,
+            wordCount
+        }),
+        [editor, mergedConfig, characterCount, wordCount]
+    )
+
+    return (
+        <div className={className}>
+            <RichContext.Provider value={contextValue}>
+                {children}
+            </RichContext.Provider>
+        </div>
+    )
+}
+
+interface ContentProps {
     value?: string
     onChange?: (content: string) => void,
     className?: string
 }
 
-const Root = ({ value = "", onChange = () => {}, className = "" }: RootProps) => {
+const Content = ({
+                     value = "", onChange = () => {
+    }, className = ""
+                 }: ContentProps) => {
+    const {setEditor, config} = useRich()
+
     const CustomTable = Table.configure({
         resizable: true,
         HTMLAttributes: {
             class: 'custom-table',
         },
-    });
+    })
 
     const editor = useEditor({
         editorProps: {
             attributes: {
-                class: 'min-h-[300px] max-h-[300px] w-full border-x border-input bg-transparent px-3 py-2 border-t-0 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 overflow-auto'
+                class: `min-h-[${config.editor?.height?.min || '300px'}] max-h-[${config.editor?.height?.max || '300px'}] w-full border-x border-input bg-transparent px-3 py-2 border-t-0 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 overflow-auto`
             }
         },
         extensions: [
-            Heading.configure({
-                levels: [1, 2, 3],
-                HTMLAttributes: {
-                    class: 'text-lg',
-                },
+            StarterKit.configure({
+                heading: false
+            }),
+            TextStyle,
+            FontFamily.configure({
+                types: ['textStyle']
             }),
             TextAlign.configure({
                 types: ['heading', 'paragraph']
             }),
             CharacterCount.configure({
-                limit: 5600,
+                limit: config.editor?.characterLimit || 5600,
                 mode: 'textSize'
             }),
-            TextStyle,
-            FontFamily,
-            StarterKit.configure({
-                orderedList: {
-                    HTMLAttributes: {
-                        class: 'list-decimal pl-4'
-                    }
-                },
-                bulletList: {
-                    HTMLAttributes: {
-                        class: 'list-disc pl-4'
-                    }
-                }
-            }),
-            CustomTable,
-            TableRow,
-            TableHeader,
-            TableCell,
+            ...(config.toolbar?.table ? [CustomTable, TableRow, TableHeader, TableCell] : []),
         ],
         content: value,
+        onBeforeCreate({editor}) {
+            setEditor(editor as EditorWithStorage)
+        },
+        onDestroy() {
+            setEditor(null)
+        },
+        onUpdate: ({editor}) => {
+            const typedEditor = editor as EditorWithStorage
+            const text = typedEditor.state.doc.textContent
+            const characterCount = text.length
+            const wordCount = text.trim() ? text.trim().split(/\s+/).length : 0
+
+            typedEditor.storage.characterCount = characterCount
+            typedEditor.storage.wordCount = wordCount
+            setEditor(typedEditor)
+
+            if (onChange) {
+                onChange(editor.getHTML())
+            }
+        }
     })
 
     const cursorPositionRef = useRef<number | null>(null)
@@ -114,166 +256,244 @@ const Root = ({ value = "", onChange = () => {}, className = "" }: RootProps) =>
 
     return (
         <div className={className}>
-            {editor && <Toolbar editor={editor}/>}
-            {editor && <EditorContent editor={editor} onInput={inputHandle} />}
-            {editor && <BottomBar editor={editor} />}
+            {editor && <EditorContent editor={editor} onInput={inputHandle}/>}
         </div>
     )
 }
 
-const BottomBar = ({ editor }: { editor: any }) => {
-    return (
-        <div className="border border-zinc-200 rounded-b-md border-t-none text-sm px-2 flex items-center justify-between">
-            <span>{editor.storage.characterCount.characters()} karakter</span>
-            <span>{editor.storage.characterCount.words()} kelime</span>
-        </div>
-    )
-}
-
-const Toolbar = ({editor}: {editor: any}) => {
-    const [selectedFont, setSelectedFont] = useState('Inter')
-    const fonts = ['Inter', 'Comic Neue', 'PT Serif', 'Roboto Mono', 'Cedarville Cursive']
+const BottomBar = () => {
+    const {editor} = useRich()
+    const [stats, setStats] = useState({characters: 0, words: 0})
 
     useEffect(() => {
-        editor.chain().setFontFamily(selectedFont).run()
+        const updateStats = () => {
+            if (editor) {
+                const text = editor.state.doc.textContent
+                setStats({
+                    characters: text.length,
+                    words: text.trim() ? text.trim().split(/\s+/).length : 0
+                })
+            }
+        }
+
+        // İlk yükleme için stats'i güncelle
+        updateStats()
+
+        // Editor değişikliklerini dinle
+        editor?.on('update', updateStats)
+
+        return () => {
+            editor?.off('update', updateStats)
+        }
+    }, [editor])
+
+    if (!editor) return null
+
+    return (
+        <div
+            className="border border-t-0 border-input bg-transparent rounded-b-md p-2 flex flex-row items-center gap-1.5 text-xs text-muted-foreground">
+            <span>{stats.words} kelime</span>
+            <span>•</span>
+            <span>{stats.characters} karakter</span>
+        </div>
+    )
+}
+
+const Toolbar = () => {
+    const {editor, config} = useRich()
+    const [selectedFont, setSelectedFont] = useState(config.toolbar?.fonts?.options?.[0] || 'Inter')
+    const fonts = config.toolbar?.fonts?.options || ['Inter']
+
+    useEffect(() => {
+        if (editor) {
+            editor.chain().setFontFamily(selectedFont).run()
+        }
     }, [editor, selectedFont])
+
+    if (!editor) return null
+
     return (
         <div>
             <div className="border border-input bg-transparent rounded-t-md p-2 flex flex-row items-center gap-1.5">
-                <Select value={selectedFont} onValueChange={val => {
-                    setSelectedFont(val)
-                    editor.chain().focus().setFontFamily(val).run()
-                }} size="small">
-                    <Select.Trigger className="w-[200px]">
-                        <Select.Value placeholder={selectedFont}/>
-                    </Select.Trigger>
-                    <Select.Content>
-                        {fonts.map((font, index) => (
-                            <Select.Item key={index} value={font}>
-                                {font}
-                            </Select.Item>
-                        ))}
-                    </Select.Content>
-                </Select>
+                {config.toolbar?.fonts?.enabled && (
+                    <>
+                        <Select value={selectedFont} onValueChange={val => {
+                            setSelectedFont(val)
+                            editor.chain().focus().setFontFamily(val).run()
+                        }} size="small">
+                            <Select.Trigger className="w-[200px]">
+                                <Select.Value placeholder={selectedFont}/>
+                            </Select.Trigger>
+                            <Select.Content>
+                                {fonts.map((font, index) => (
+                                    <Select.Item key={index} value={font}>
+                                        {font}
+                                    </Select.Item>
+                                ))}
+                            </Select.Content>
+                        </Select>
+                        <Separator orientation="vertical" className="w-[1px] h-8"/>
+                    </>
+                )}
 
-                <Separator orientation="vertical" className="w-[1px] h-8" />
-                <IconButton
-                    variant={editor.isActive('italic') ? "primary" : "transparent"}
-                    onClick={() => editor.chain().focus().toggleItalic().run()}
-                >
-                    <Italic01 className="h-4 w-4" />
-                </IconButton>
+                {config.toolbar?.italic && (
+                    <IconButton
+                        variant={editor.isActive('italic') ? "primary" : "transparent"}
+                        onClick={() => editor.chain().focus().toggleItalic().run()}
+                    >
+                        <Italic01 className="h-4 w-4"/>
+                    </IconButton>
+                )}
 
-                <IconButton
-                    variant={editor.isActive('bold') ? "primary" : "transparent"}
-                    onClick={() => editor.chain().focus().toggleBold().run()}
-                >
-                    <Bold01 className="h-4 w-4" />
-                </IconButton>
+                {config.toolbar?.bold && (
+                    <IconButton
+                        variant={editor.isActive('bold') ? "primary" : "transparent"}
+                        onClick={() => editor.chain().focus().toggleBold().run()}
+                    >
+                        <Bold01 className="h-4 w-4"/>
+                    </IconButton>
+                )}
 
-                <IconButton
-                    variant={editor.isActive('strike') ? "primary" : "transparent"}
-                    onClick={() => editor.chain().focus().toggleStrike().run()}
-                >
-                    <Strikethrough01 className="h-4 w-4" />
-                </IconButton>
+                {config.toolbar?.strike && (
+                    <IconButton
+                        variant={editor.isActive('strike') ? "primary" : "transparent"}
+                        onClick={() => editor.chain().focus().toggleStrike().run()}
+                    >
+                        <Strikethrough01 className="h-4 w-4"/>
+                    </IconButton>
+                )}
 
-                <Separator orientation="vertical" className="w-[1px] h-8" />
-                <IconButton
-                    variant={editor.isActive('bulletList') ? "primary" : "transparent"}
-                    onClick={() => editor.chain().focus().toggleBulletList().run()}
-                >
-                    <ListBulleted className="h-4 w-4" />
-                </IconButton>
+                {(config.toolbar?.bold || config.toolbar?.italic || config.toolbar?.strike) && (
+                    <Separator orientation="vertical" className="w-[1px] h-8"/>
+                )}
 
-                <IconButton
-                    variant={editor.isActive('orderedList') ? "primary" : "transparent"}
-                    onClick={() => editor.chain().focus().toggleOrderedList().run()}
-                >
-                    <ListNumbered className="h-4 w-4" />
-                </IconButton>
-                <Separator orientation="vertical" className="w-[1px] h-8" />
-                <IconButton className={editor.isActive({ textAlign: 'left' }) ? 'bg-accent text-accent-foreground' : ''}
+                {config.toolbar?.bulletList && (
+                    <IconButton
+                        variant={editor.isActive('bulletList') ? "primary" : "transparent"}
+                        onClick={() => editor.chain().focus().toggleBulletList().run()}
+                    >
+                        <ListBulleted className="h-4 w-4"/>
+                    </IconButton>
+                )}
+
+                {config.toolbar?.orderedList && (
+                    <IconButton
+                        variant={editor.isActive('orderedList') ? "primary" : "transparent"}
+                        onClick={() => editor.chain().focus().toggleOrderedList().run()}
+                    >
+                        <ListNumbered className="h-4 w-4"/>
+                    </IconButton>
+                )}
+
+                {(config.toolbar?.bulletList || config.toolbar?.orderedList) && (
+                    <Separator orientation="vertical" className="w-[1px] h-8"/>
+                )}
+
+                {config.toolbar?.alignment && (
+                    <>
+                        <IconButton
+                            className={editor.isActive({textAlign: 'left'}) ? 'bg-accent text-accent-foreground' : ''}
                             variant="transparent"
                             onClick={() => editor.commands.setTextAlign('left')}>
-                    <AlignLeft className="h-4 w-4" />
-                </IconButton>
-                <IconButton className={editor.isActive({ textAlign: 'center' }) ? 'bg-accent text-accent-foreground' : ''}
+                            <AlignLeft className="h-4 w-4"/>
+                        </IconButton>
+                        <IconButton
+                            className={editor.isActive({textAlign: 'center'}) ? 'bg-accent text-accent-foreground' : ''}
                             onClick={() => editor.commands.setTextAlign('center')}
                             variant="transparent">
-                    <AlignCenter className="h-4 w-4" />
-                </IconButton>
-                <IconButton className={editor.isActive({ textAlign: 'right' }) ? 'bg-accent text-accent-foreground' : ''}
+                            <AlignCenter className="h-4 w-4"/>
+                        </IconButton>
+                        <IconButton
+                            className={editor.isActive({textAlign: 'right'}) ? 'bg-accent text-accent-foreground' : ''}
                             onClick={() => editor.commands.setTextAlign('right')}
                             variant="transparent">
-                    <AlignRight className="h-4 w-4" />
-                </IconButton>
-                <Separator orientation="vertical" className="w-[1px] h-8" />
-                <IconButton className={editor.isActive('code') ? 'bg-accent text-accent-foreground' : ''}
+                            <AlignRight className="h-4 w-4"/>
+                        </IconButton>
+                        <Separator orientation="vertical" className="w-[1px] h-8"/>
+                    </>
+                )}
+
+                {config.toolbar?.code && (
+                    <>
+                        <IconButton
+                            className={editor.isActive('code') ? 'bg-accent text-accent-foreground' : ''}
                             onClick={() => editor.commands.toggleCode()}
                             variant="transparent">
-                    <Code className="w-4 h-4" />
-                </IconButton>
-                <Separator orientation="vertical" className="w-[1px] h-8" />
-                <Popover>
-                    <Popover.Trigger asChild>
-                        <IconButton className={editor.isActive('table') ? 'bg-accent text-accent-foreground' : ''} variant="transparent">
-                            <TableIcon className="w-4 h-4" />
+                            <Code className="w-4 h-4"/>
                         </IconButton>
-                    </Popover.Trigger>
-                    <Popover.Content className="w-80 p-2.5">
-                        <div className="grid grid-cols-2 gap-2">
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()}>
-                                <TableIcon className="w-4 h-4 mr-2" />
-                                Tablo Ekle
-                            </Button>
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().deleteTable().run()}>
-                                <Trash02 className="w-4 h-4 mr-2" />
-                                Tabloyu Sil
-                            </Button>
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().addColumnBefore().run()}>
-                                <ArrowCircleBrokenLeft className="w-4 h-4 mr-2" />
-                                Sütun Ekle
-                            </Button>
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().addColumnAfter().run()}>
-                                <ArrowCircleBrokenRight className="w-4 h-4 mr-2" />
-                                Sütun Ekle
-                            </Button>
+                        <Separator orientation="vertical" className="w-[1px] h-8"/>
+                    </>
+                )}
 
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().addRowBefore().run()}>
-                                <ArrowCircleBrokenUp className="w-4 h-4 mr-2" />
-                                Satır Ekle
-                            </Button>
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().addRowAfter().run()}>
-                                <ArrowCircleBrokenDown className="w-4 h-4 mr-2" />
-                                Satır Ekle
-                            </Button>
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().deleteColumn().run()}>
-                                <Trash02 className="w-4 h-4 mr-2" />
-                                Sütunu Sil
-                            </Button>
-                            <Button variant="secondary" className="w-full"
-                                    onClick={() => editor.chain().focus().deleteRow().run()}>
-                                <Trash02 className="w-4 h-4 mr-2" />
-                                Satırı Sil
-                            </Button>
-                        </div>
-                    </Popover.Content>
-                </Popover>
+                {config.toolbar?.table && (
+                    <Popover>
+                        <Popover.Trigger asChild>
+                            <IconButton
+                                className={editor.isActive('table') ? 'bg-accent text-accent-foreground' : ''}
+                                variant="transparent">
+                                <TableIcon className="w-4 h-4"/>
+                            </IconButton>
+                        </Popover.Trigger>
+                        <Popover.Content className="w-80 p-2.5">
+                            <div className="grid grid-cols-2 gap-2">
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().insertTable({
+                                            rows: 3,
+                                            cols: 3,
+                                            withHeaderRow: true
+                                        }).run()}>
+                                    <TableIcon className="w-4 h-4 mr-2"/>
+                                    Tablo Ekle
+                                </Button>
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().deleteTable().run()}>
+                                    <Trash02 className="w-4 h-4 mr-2"/>
+                                    Tabloyu Sil
+                                </Button>
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().addColumnBefore().run()}>
+                                    <ArrowCircleBrokenLeft className="w-4 h-4 mr-2"/>
+                                    Sütun Ekle
+                                </Button>
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().addColumnAfter().run()}>
+                                    <ArrowCircleBrokenRight className="w-4 h-4 mr-2"/>
+                                    Sütun Ekle
+                                </Button>
+
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().addRowBefore().run()}>
+                                    <ArrowCircleBrokenUp className="w-4 h-4 mr-2"/>
+                                    Satır Ekle
+                                </Button>
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().addRowAfter().run()}>
+                                    <ArrowCircleBrokenDown className="w-4 h-4 mr-2"/>
+                                    Satır Ekle
+                                </Button>
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().deleteColumn().run()}>
+                                    <Trash02 className="w-4 h-4 mr-2"/>
+                                    Sütunu Sil
+                                </Button>
+                                <Button variant="secondary" className="w-full"
+                                        onClick={() => editor.chain().focus().deleteRow().run()}>
+                                    <Trash02 className="w-4 h-4 mr-2"/>
+                                    Satırı Sil
+                                </Button>
+                            </div>
+                        </Popover.Content>
+                    </Popover>
+                )}
             </div>
         </div>
     )
 }
 
 const Rich = Object.assign(Root, {
-
+    Content,
+    Toolbar,
+    BottomBar
 })
 
-export { Rich }
+export {Rich, type RichConfig, useRich}

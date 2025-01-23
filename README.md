@@ -48,8 +48,8 @@
    - [x] Rich Text Editor: Toolbar, Editor, Preview
    - [x] Charts & Graphs: Axis, DataPoint, Legend
    - [x] Notifications (Toast): Message, CloseButton (https://sonner.emilkowal.ski/)
-- [ ] Todos
-  - [ ] The rich editor will be broken down into a more configurable state: Eg. Rich Rich.Content Rich.Toolbar Rich.Bottom
+- [x] Todos
+  - [x] The rich editor will be broken down into a more configurable state: Eg. Rich Rich.Content Rich.Toolbar Rich.Bottom
 
 
 ## Utilities & Helpers

@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
 
-import { Rich } from "./rich";
+import {Rich} from "./rich";
 
 const meta: Meta<typeof Rich> = {
-  title: "Components/Rich",
-  component: Rich,
-  parameters: {
-    layout: "fullscreen",
-  },
+    title: "Components/Rich",
+    component: Rich,
+    parameters: {
+        layout: "fullscreen",
+    },
 };
 
 export default meta;
@@ -16,15 +16,17 @@ export default meta;
 type Story = StoryObj<typeof Rich>;
 
 const RichDemo = () => {
-  return (
-      <div className="flex h-screen w-screen items-center justify-center">
-        <div className="w-[700px]">
-            <Rich className="w-full" />
+    return (
+        <div className="flex h-screen w-screen items-center justify-center">
+            <Rich className="w-[700px]">
+                <Rich.Toolbar/>
+                <Rich.Content/>
+                <Rich.BottomBar/>
+            </Rich>
         </div>
-      </div>
-  );
+    );
 };
 
 export const Default: Story = {
-  render: () => <RichDemo />,
+    render: () => <RichDemo/>,
 };
