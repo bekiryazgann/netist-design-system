@@ -29,6 +29,7 @@ const iconButtonVariants = cva(
         ),
       },
       size: {
+        small: "h-6 w-6 p-0.5",
         base: "h-8 w-8 p-1.5",
         large: "h-10 w-10 p-2.5",
         xlarge: "h-12 w-12 p-3.5",
@@ -102,4 +103,4 @@ const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
 )
 IconButton.displayName = "IconButton"
 
-export { IconButton, iconButtonVariants }
+export { IconButton, iconButtonVariants, type IconButtonProps}

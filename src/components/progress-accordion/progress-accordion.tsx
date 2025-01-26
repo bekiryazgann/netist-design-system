@@ -11,8 +11,15 @@ import {ProgressStatus} from "@/types"
 import {clx} from "@/utils/clx"
 import {IconButton} from "../icon-button"
 
-const Root = (props: React.ComponentPropsWithoutRef<typeof Primitves.Root>) => {
-    return <Primitves.Root {...props}/>
+const Root = ({className, ...props}: React.ComponentPropsWithoutRef<typeof Primitves.Root>) => {
+    return (
+        <Primitves.Root
+            className={clx(
+                "shadow-elevation-card-rest bg-ui-bg-base w-full rounded-lg px-8 pb-8 pt-6 txt-compact-medium text-ui-fg-base mt-4 h-full p-3",
+                className
+            )}
+            {...props}/>
+    )
 }
 Root.displayName = "ProgressAccordion"
 

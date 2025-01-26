@@ -1,4 +1,5 @@
 export { Avatar } from "./components/avatar";
+export { Alert } from "./components/alert";
 export { Badge } from "./components/badge";
 export { Button } from "./components/button";
 export { Calendar } from "./components/calendar";
@@ -7,7 +8,6 @@ export { Code } from "./components/code";
 export { CodeBlock } from "./components/code-block";
 export { Command } from "./components/command";
 export { CommandBar } from "./components/command-bar";
-export { Container } from "./components/container";
 export { ContentDivider } from "./components/content-divider";
 export { Copy } from "./components/copy";
 export { CurrencyInput } from "./components/currency-input";
@@ -41,6 +41,7 @@ export { TimeInput } from "./components/time-input";
 export { Toaster, toast } from "./components/toast";
 export { Tooltip } from "./components/tooltip";
 export { Popover } from "./components/popover";
+export { InlineTips } from "./components/inline-tips";
 
 export { Card } from "./components/card";
 export { Chart, type ChartConfig } from "./components/chart";

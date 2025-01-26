@@ -7,8 +7,16 @@ import * as React from "react"
 import {ProgressStatus} from "@/types"
 import {clx} from "@/utils/clx"
 
-const ProgressTabsRoot = (props: ProgressTabsPrimitives.TabsProps) => {
-    return <ProgressTabsPrimitives.Root {...props} />
+const ProgressTabsRoot = ({className, ...props}: ProgressTabsPrimitives.TabsProps) => {
+    return (
+        <ProgressTabsPrimitives.Root
+            className={clx(
+                "shadow-elevation-card-rest bg-ui-bg-base w-full rounded-lg overflow-hidden",
+                className
+            )}
+            {...props}
+        />
+    )
 }
 ProgressTabsRoot.displayName = "ProgressTabs"
 

@@ -9,6 +9,8 @@ import Table from '@tiptap/extension-table'
 import TableCell from '@tiptap/extension-table-cell'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
+import Blockquote from '@tiptap/extension-blockquote'
+import {Heading} from "@tiptap/extension-heading";
 
 import {Popover} from "@/components/popover"
 import {Button} from "@/components/button"
@@ -30,9 +32,11 @@ import {
     Strikethrough01,
     Bold01,
     ListBulleted,
-    ListNumbered
+    ListNumbered,
+    LeftIndent01
 } from "@netist/icons";
 import {Editor} from "@tiptap/core";
+import {clx} from "@/utils/clx";
 
 interface EditorWithStorage extends Editor {
     storage: {
@@ -66,7 +70,6 @@ interface ToolbarConfig {
 
 interface EditorConfig {
     characterLimit?: number
-    placeholder?: string
     height?: {
         min?: string
         max?: string
@@ -159,7 +162,10 @@ const Root = ({children, config = defaultConfig, className}: RootProps) => {
     )
 
     return (
-        <div className={className}>
+        <div className={clx(
+                "border border-input rounded-md overflow-hidden",
+                className
+            )}>
             <RichContext.Provider value={contextValue}>
                 {children}
             </RichContext.Provider>
@@ -173,10 +179,7 @@ interface ContentProps {
     className?: string
 }
 
-const Content = ({
-                     value = "", onChange = () => {
-    }, className = ""
-                 }: ContentProps) => {
+const Content = ({value = "", onChange = () => {}, className = ""}: ContentProps) => {
     const {setEditor, config} = useRich()
 
     const CustomTable = Table.configure({
@@ -189,16 +192,20 @@ const Content = ({
     const editor = useEditor({
         editorProps: {
             attributes: {
-                class: `min-h-[${config.editor?.height?.min || '300px'}] max-h-[${config.editor?.height?.max || '300px'}] w-full border-x border-input bg-transparent px-3 py-2 border-t-0 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 overflow-auto`
+                class: `min-h-[200px] max-h-[400px] w-full bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 overflow-auto`
             }
         },
         extensions: [
+            Blockquote,
             StarterKit.configure({
                 heading: false
             }),
             TextStyle,
             FontFamily.configure({
                 types: ['textStyle']
+            }),
+            Heading.configure({
+                levels: [1, 2, 3, 4, 5, 6],
             }),
             TextAlign.configure({
                 types: ['heading', 'paragraph']
@@ -276,10 +283,8 @@ const BottomBar = () => {
             }
         }
 
-        // İlk yükleme için stats'i güncelle
         updateStats()
 
-        // Editor değişikliklerini dinle
         editor?.on('update', updateStats)
 
         return () => {
@@ -291,7 +296,7 @@ const BottomBar = () => {
 
     return (
         <div
-            className="border border-t-0 border-input bg-transparent rounded-b-md p-2 flex flex-row items-center gap-1.5 text-xs text-muted-foreground">
+            className="bg-transparent rounded-b-md p-2 flex flex-row items-center gap-1.5 text-xs text-muted-foreground">
             <span>{stats.words} kelime</span>
             <span>•</span>
             <span>{stats.characters} karakter</span>
@@ -314,7 +319,7 @@ const Toolbar = () => {
 
     return (
         <div>
-            <div className="border border-input bg-transparent rounded-t-md p-2 flex flex-row items-center gap-1.5">
+            <div className="border-b border-b-input bg-transparent rounded-t-md p-2 flex flex-row items-center gap-1.5">
                 {config.toolbar?.fonts?.enabled && (
                     <>
                         <Select value={selectedFont} onValueChange={val => {
@@ -360,6 +365,15 @@ const Toolbar = () => {
                         onClick={() => editor.chain().focus().toggleStrike().run()}
                     >
                         <Strikethrough01 className="h-4 w-4"/>
+                    </IconButton>
+                )}
+
+                {config.toolbar?.strike && (
+                    <IconButton
+                        variant={editor.isActive('blockquote') ? "primary" : "transparent"}
+                        onClick={() => editor.commands.toggleBlockquote()}
+                    >
+                        <LeftIndent01 className="h-4 w-4"/>
                     </IconButton>
                 )}
 
